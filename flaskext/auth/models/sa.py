@@ -16,7 +16,7 @@ def get_user_class(declarative_base):
         Implementation of User for SQLAlchemy.
         """
         id = Column(Integer, primary_key=True)
-        username = Column(String(80), unique=True, nullable=False)
+        email = Column(String(254), unique=True, nullable=False)
         password = Column(String(120), nullable=False)
         salt = Column(String(80))
         role = Column(String(80))
@@ -34,7 +34,7 @@ def get_user_class(declarative_base):
         def __getstate__(self):
             return {
                 'id': self.id,
-                'username': self.username,
+                'email': self.email,
                 'role': self.role,
                 'created': self.created,
                 'modified': self.modified,
@@ -45,6 +45,6 @@ def get_user_class(declarative_base):
             data = get_current_user_data(apply_timeout)
             if not data:
                 return None
-            return cls.query.filter(cls.username==data['username']).one()
+            return cls.query.filter(cls.email==data['email']).one()
 
     return User

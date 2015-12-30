@@ -40,7 +40,7 @@ the ``password`` attribute of the user.
 
     @app.before_request
     def init_users():
-        admin = AuthUser(username='admin')
+        admin = AuthUser(email='admin')
         admin.set_and_encrypt_password('password')
         g.users = {'admin': admin}
 
@@ -50,15 +50,15 @@ Now we can write a view that allows the user to log in.
 
     def index():
         if request.method == 'POST':
-            username = request.form['username']
-            if username in g.users:
+            email = request.form['email']
+            if email in g.users:
                 # Authenticate and log in!
-                if g.users[username].authenticate(request.form['password']):
+                if g.users[email].authenticate(request.form['password']):
                     return redirect(url_for('admin'))
             return 'Failure :('
         return '''
                 <form method="POST">
-                    Username: <input type="text" name="username"/><br/>
+                    Username: <input type="text" name="email"/><br/>
                     Password: <input type="password" name="password"/><br/>
                     <input type="submit" value="Log in"/>
                 </form>

@@ -61,7 +61,7 @@ class AuthUser(object):
     """
     Baseclass for a user model. Contains a few convenience methods.
 
-    :attr username: Username of the user.
+    :attr email: Username of the user.
     :attr password: Password of the user. The :meth`AuthUser.set_and_encrypt_password`
     method sets and encrypts the password.
     :attr salt: Salt used for the encrytion of the password.
@@ -70,8 +70,8 @@ class AuthUser(object):
 
     role = None
 
-    def __init__(self, username=None, password=None, salt=None, role=None):
-        self.username = username
+    def __init__(self, email=None, password=None, salt=None, role=None):
+        self.email = email
         # Storing password unmodified. Encryption of the password should
         # happen explicitly.
         self.password = password
@@ -97,7 +97,7 @@ class AuthUser(object):
         return False
 
     def __eq__(self, other):
-        return self.username == getattr(other, 'username', None)
+        return self.email == getattr(other, 'email', None)
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -119,7 +119,7 @@ class AuthUser(object):
 
     def is_logged_in(self):
         user_data = get_current_user_data()
-        return user_data is not None and user_data.get('username') == self.username
+        return user_data is not None and user_data.get('email') == self.email
 
 
 def encrypt(password, salt=None, hash_algorithm=None):

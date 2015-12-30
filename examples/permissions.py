@@ -30,16 +30,16 @@ auth.load_role = load_role
 def init_users():
     """
     Initializing users by hardcoding password. Another use case is to read
-    usernames from an external file (like /etc/passwd).
+    emails from an external file (like /etc/passwd).
     """
-    user = AuthUser(username='user')
+    user = AuthUser(email='user')
     # Setting and encrypting the hardcoded password.
     user.set_and_encrypt_password('password', salt='123')
     # Setting role of the user.
     user.role = 'userview'
 
     # Doing the same for the admin
-    admin = AuthUser(username='admin')
+    admin = AuthUser(email='admin')
     admin.set_and_encrypt_password('admin')
     admin.role = 'admin'
 
@@ -56,10 +56,10 @@ def user_create():
 
 def index():
     if request.method == 'POST':
-        username = request.form['username']
-        if username in g.users:
+        email = request.form['email']
+        if email in g.users:
             # Authenticate and log in!
-            if g.users[username].authenticate(request.form['password']):
+            if g.users[email].authenticate(request.form['password']):
                 return '''
                         <a href="{0}">View users</a><br/>
                         <a href="{1}">Create users</a><br/>
@@ -70,7 +70,7 @@ def index():
         return 'Failure :('
     return '''
             <form method="POST">
-                Username: <input type="text" name="username"/><br/>
+                Username: <input type="text" name="email"/><br/>
                 Password: <input type="password" name="password"/><br/>
                 <input type="submit" value="Log in"/>
             </form>
@@ -80,7 +80,7 @@ def logout_view():
     user_data = logout()
     if user_data is None:
         return 'No user to log out.'
-    return 'Logged out user {0}.'.format(user_data['username'])
+    return 'Logged out user {0}.'.format(user_data['email'])
 
 # URLs
 app.add_url_rule('/', 'index', index, methods=['GET', 'POST'])

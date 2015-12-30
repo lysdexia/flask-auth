@@ -16,8 +16,8 @@ def admin():
 
 def index():
     if request.method == 'POST':
-        username = request.form['username']
-        user = User.query.filter(User.username==username).one()
+        email = request.form['email']
+        user = User.query.filter(User.email==email).one()
         if user is not None:
             # Authenticate and log in!
             if user.authenticate(request.form['password']):
@@ -25,7 +25,7 @@ def index():
         return 'Failure :('
     return '''
             <form method="POST">
-                Username: <input type="text" name="username"/><br/>
+                Username: <input type="text" name="email"/><br/>
                 Password: <input type="password" name="password"/><br/>
                 <input type="submit" value="Log in"/>
             </form>
@@ -33,17 +33,17 @@ def index():
 
 def user_create():
     if request.method == 'POST':
-        username = request.form['username']
-        if User.query.filter(User.username==username).first():
+        email = request.form['email']
+        if User.query.filter(User.email==email).first():
             return 'User already exists.'
         password = request.form['password']
-        user = User(username=username, password=password)
+        user = User(email=email, password=password)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('index'))
     return '''
             <form method="POST">
-                Username: <input type="text" name="username"/><br/>
+                Username: <input type="text" name="email"/><br/>
                 Password: <input type="password" name="password"/><br/>
                 <input type="submit" value="Create"/>
             </form>
@@ -53,7 +53,7 @@ def logout_view():
     user_data = logout()
     if user_data is None:
         return 'No user to log out.'
-    return 'Logged out user {0}.'.format(user_data['username'])
+    return 'Logged out user {0}.'.format(user_data['email'])
 
 # URLs
 app.add_url_rule('/', 'index', index, methods=['GET', 'POST'])

@@ -17,7 +17,7 @@ class EncryptionTestCase(unittest.TestCase):
         auth = Auth(app)
         self.app = app
         auth.hash_algorithm = self.HASH_ALGORITHM
-        user = AuthUser(username='user')
+        user = AuthUser(email='user')
         self.user = user
 
     def test_encryption(self):
@@ -39,7 +39,7 @@ class LoginTestCase(unittest.TestCase):
         app.secret_key = 'N4buDSXfaHx2oO8g'
         auth = Auth(app)
         auth.hash_algorithm = hashlib.sha1
-        user = AuthUser(username='user')
+        user = AuthUser(email='user')
         with app.test_request_context():
             user.set_and_encrypt_password(self.PASSWORD)
         self.app = app
@@ -65,7 +65,7 @@ class LoginTestCase(unittest.TestCase):
         with self.app.test_request_context():
             login(self.user)
             user_data = logout()
-            assert user_data['username'] == self.user.username
+            assert user_data['email'] == self.user.email
             assert session.get(SESSION_USER_KEY) is None
             assert session.get(SESSION_LOGIN_KEY) is None
 
@@ -112,7 +112,7 @@ class PermissionTestCase(unittest.TestCase):
             return self.ROLES.get(role_name)
 
         auth.load_role = load_role
-        user = AuthUser(username='user')
+        user = AuthUser(email='user')
         user.role = 'testuser'
         self.user = user
 
@@ -154,7 +154,7 @@ class RequestTestCase(unittest.TestCase):
         def login_view():
             return 'login_view'
 
-        user = AuthUser(username='user')
+        user = AuthUser(email='user')
         user.role = 'testuser'
         testuser_role = Role('testuser', [Permission('post', 'view')])
         auth.load_role = lambda _: testuser_role

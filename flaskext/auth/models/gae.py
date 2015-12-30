@@ -10,7 +10,7 @@ class User(db.Model, AuthUser):
     """
     Implementation of User for persistence in Google's App Engine datastore.
     """
-    username = db.StringProperty(required=True)
+    email = db.StringProperty(required=True)
     password = db.StringProperty(required=True)
     salt = db.StringProperty()
     role = db.StringProperty()
