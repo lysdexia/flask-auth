@@ -9,6 +9,7 @@ from flaskext.auth import AuthUser
 class User(db.Model, AuthUser):
     """
     Implementation of User for persistence in Google's App Engine datastore.
+    NOT TESTED SINCE FORKED FROM thedekel/flask-auth! USE AT YOUR OWN RISK!
     """
     email = db.StringProperty(required=True)
     password = db.StringProperty(required=True)
