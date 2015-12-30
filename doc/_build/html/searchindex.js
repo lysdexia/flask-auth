@@ -1,0 +1,1 @@
+Search.setIndex({envversion:46,filenames:["index"],objects:{},objnames:{},objtypes:{},terms:{content:0,index:0,modul:0,page:0,search:0},titles:["Welcome to flask-auth-username-is-email&#8217;s documentation!"],titleterms:{auth:0,document:0,email:0,flask:0,indic:0,tabl:0,usernam:0,welcom:0}})

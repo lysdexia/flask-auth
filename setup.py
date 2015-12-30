@@ -1,22 +1,22 @@
 """
-==========
-Flask-Auth
-==========
+============================
+flask-auth-username-is-email
+============================
 
 Database-agnostic extension for Flask to support role-based authentication of
-users. This is a BS alteration to use "email" instead of "username". Don't be fooled by this pale imitation.
+users. This is a piddly alteration to use "email" instead of "username". Don't be fooled by this pale imitation.
 
 Links
 -----
 
 * `Documentation <http://packages.python.org/Flask-Auth>`_
-* `Repository <https://github.com/lysdexia>`_
+* `Repository <https://github.com/lysdexia/flask-auth-username-is-email.git>`_
 
 Revisions
 ---------
 0.86
 ````
-* Minor BS revision changing username to <= 254 character email address.
+* Minor revision changing username to <= 254 character email address.
 
 * Removed references to mongoalchemy in docs, as it ain't there in the first place.
 
@@ -54,9 +54,9 @@ Logging in, session management, encryption, etc.
 from setuptools import setup
 
 setup(
-    name='Flask-Auth',
+    name='flask-auth-username-is-email',
     version='0.86',
-    url='https://github.com/lysdexia/flask-auth/'
+    url='https://github.com/lysdexia/flask-auth-username-is-email/'
     license='MIT',
     author='Doug Shawhan',
     author_email='doug.shawhan@gmail.com',
